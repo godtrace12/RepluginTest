@@ -3,13 +3,13 @@ package com.hikvision.daijun.plugin1;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.os.Messenger;
 import android.os.RemoteException;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -17,6 +17,7 @@ import android.widget.Button;
 import com.google.gson.Gson;
 import com.hikvision.daijun.plugin1.bean.MsgContent;
 import com.hikvision.daijun.plugin1.bean.PushMsgContent;
+import com.qihoo360.replugin.RePlugin;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
     private static final String TAG = "MainActivity";
@@ -90,14 +91,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void connectToService(){
         Intent intent = new Intent();
-//        intent.setComponent(new ComponentName("com.hikvision.daijun.messengerservice","com.hikvision.daijun.messengerservice.PluginComService"));
         intent.setAction("com.hikvision.daijun.messengerclient");
         intent.setPackage("com.hikvision.daijun.replugintest");
-        bindService(intent,serviceConnection,BIND_AUTO_CREATE);
+//        bindService(intent,serviceConnection,BIND_AUTO_CREATE);
+        RePlugin.getHostContext().bindService(intent,serviceConnection,BIND_AUTO_CREATE);
     }
 
     public void sendMessageToPlugin(){
-        Log.e(TAG, "sendMessageToPlugin: ");
+        Log.e(TAG, "sendMessageToHost: ");
         Message msg = Message.obtain();
         msg.what = 1001;
         msg.arg1 = 1001;
@@ -110,9 +111,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             mesgerSend.send(msg);
         } catch (RemoteException e) {
             e.printStackTrace();
-            Log.e(TAG, "sendMessageToPlugin: 消息发送异常"+e.getMessage());
+            Log.e(TAG, "sendMessageToHost: 消息发送异常"+e.getMessage());
         }
-
     }
 
     private String getJsonString(){
@@ -135,7 +135,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onDestroy() {
         if (serviceConnection != null) {
-            unbindService(serviceConnection);
+//            unbindService(serviceConnection);
+            RePlugin.getHostContext().unbindService(serviceConnection);
         }
         super.onDestroy();
     }

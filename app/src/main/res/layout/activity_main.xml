@@ -17,5 +17,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="外置模式 plugin" />
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:src="@color/colorAccent"
+        android:layout_marginTop="20dp"/>
 
+    <Button
+        android:id="@+id/btnPluginCom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="发送消息给plugin1" />
 </LinearLayout>

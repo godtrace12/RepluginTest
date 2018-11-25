@@ -10,7 +10,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,15 +18,18 @@
             </intent-filter>
         </activity>
 
-        <service android:name=".PluginComService"
+        <service
+            android:name=".PluginComService"
             android:enabled="true"
             android:exported="true">
             <intent-filter>
-                <action android:name="com.hikvision.daijun.messengerclient"></action>
+                <action android:name="com.hikvision.daijun.messengerclient" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </service>
 
+        <activity android:name="com.hikvision.daijun.PluginCommunicateActivity"></activity>
     </application>
 
 </manifest>

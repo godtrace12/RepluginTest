@@ -9,7 +9,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <meta-data
             android:name="com.qihoo360.plugin.name"
             android:value="plugin1" />
@@ -17,7 +16,8 @@
             android:name="com.qihoo360.plugin.version.ver"
             android:value="100" />
 
-        <activity android:name=".MainActivity"
+        <activity
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,6 +25,20 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <service
+            android:name=".PluginAidlService"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.hikvision.daijun.replugintest" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </service>
+
+        <activity android:name=".AlarmMsgDetailActivity"
+            android:exported="true"
+            android:excludeFromRecents="true"></activity>
     </application>
 
 </manifest>

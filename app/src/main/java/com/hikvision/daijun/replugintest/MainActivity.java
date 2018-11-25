@@ -1,14 +1,16 @@
 package com.hikvision.daijun.replugintest;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.hikvision.daijun.PluginCommunicateActivity;
 import com.qihoo360.replugin.RePlugin;
 import com.qihoo360.replugin.model.PluginInfo;
 import com.qihoo360.replugin.utils.FileUtils;
@@ -21,6 +23,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private static final String TAG = "MainActivityHost";
     private Button btnPlugin1;
     private Button btnPluginOutMode;
+    private Button btnPluginCom;
     private GetPluginInfoTask getPluginInfoTask = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,11 +37,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void findViews() {
         btnPlugin1 = (Button) findViewById(R.id.btnPlugin1);
         btnPluginOutMode = (Button) findViewById(R.id.btnPluginOutMode);
+        btnPluginCom = (Button) findViewById(R.id.btnPluginCom);
     }
 
     private void initClickListener(){
         btnPlugin1.setOnClickListener(this);
         btnPluginOutMode.setOnClickListener(this);
+        btnPluginCom.setOnClickListener(this);
     }
 
     private void initData() {
@@ -72,6 +77,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 } else {
                     Toast.makeText(MainActivity.this, "外置plugin未安装，请先进行安装", Toast.LENGTH_SHORT).show();
                 }
+                break;
+            case R.id.btnPluginCom:
+                Intent intent = new Intent(MainActivity.this, PluginCommunicateActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
                 break;
         }
     }
